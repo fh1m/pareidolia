@@ -3,9 +3,12 @@
 **What does a 2001 face detector actually look at?**
 
 My first computer-vision program (November 2023) opened a webcam, ran
-OpenCV's Haar cascade and drew green boxes on my face. It felt like magic,
-and magic is a bad place to stop. A machine that finds faces has to be
-looking for *something*, so this repo opens the box.
+OpenCV's Haar cascade and drew a green box on my face.
+
+![November 2023: the first face detector, finding me, while I wave at it](assets/original/webcam-2023.png)
+
+It felt like magic, and magic is a bad place to stop. A machine that finds
+faces has to be looking for *something*, so this repo opens the box.
 
 The detector is the Viola–Jones cascade (2001) in OpenCV's
 `haarcascade_frontalface_default.xml`: 25 stages and 2,913 tiny
@@ -52,27 +55,43 @@ who assumed. The other two, a motion-blurred clock face and a patch of gravel,
 are true pareidolia: the brain's habit of seeing faces in sockets and clouds,
 reproduced in 2,913 rectangles.
 
-## Why this mattered to me
+## 4. Back to the bedroom
 
-Every later detector I trained, on AUVs and rovers, was a deeper and more
-opaque version of this one. This was the last time I could print the whole
-model, read it and point at the line that made a mistake. I still
-open models up before I trust them.
+The same detector, run again on the 2023 screenshot above:
+
+![The 2023 frame rerun: my face, plus two backpacks and a curtain fold](assets/rerun_2023.png)
+
+Three faces. One is me. One is **two backpacks hanging on the door**: a dark
+blob over a dark blob, which is all stage 0 ever wanted. The small one is a fold
+in the curtain. (Fair disclosure: the new loop equalises the histogram first,
+which the 2023 one didn't. That brings out shadows, including the backpacks'.)
+
+## Why this mattered
+
+Every detector I trained after this, on underwater vehicles and rovers, was
+a deeper and more opaque version of this one. This was the last time I could
+print the whole model, read it and point at the rectangle that made the
+mistake.
 
 ## Run it
 
 ```bash
 python -m venv .venv && . .venv/bin/activate
 pip install -r requirements.txt
-python -m pareidolia.run      # ~5 s, prints findings, rewrites assets/*.png
+python -m pareidolia.run                 # ~5 s, the three studies, rewrites assets/*.png
+python -m pareidolia.live                # the webcam loop, fixed
+python -m pareidolia.live --pareidolia   # loosen the vote and meet your furniture
+python -m pareidolia.live --image photo.jpg --out boxed.jpg
 ```
 
-No webcam, no downloads: test images ship with scikit-image.
+No downloads: test images ship with scikit-image.
 
 ## Layout
 
 ```
-origin/Main.py        the 2023 webcam loop
+origin/Main.py        the 2023 webcam loop (it wanted /home/fh1m/cascade.xml, i.e. my laptop)
+README-2023.md        its README and screenshot
 cascade.xml           OpenCV's frontal-face cascade (Lienhart), with its licence header
 pareidolia/run.py     feature drawing, rotation sweep, the face hunt
+pareidolia/live.py    the webcam loop: portable path, FPS, a pareidolia switch
 ```
