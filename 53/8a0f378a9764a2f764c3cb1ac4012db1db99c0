@@ -1,0 +1,18 @@
+README-2023.md
+  h_f1b9066eb9899c 1-6
+README.md
+  h_f1b9066eb9899c 6-11,58-69,71-74,81-84,87,92-93,96
+pareidolia/live.py
+  h_f1b9066eb9899c 1-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "538a0f378a9764a2f764c3cb1ac4012db1db99c0",
+  "prompts": {},
+  "humans": {
+    "h_f1b9066eb9899c": {
+      "author": "fh1m <fahim.2002.faisal@gmail.com>"
+    }
+  }
+}
