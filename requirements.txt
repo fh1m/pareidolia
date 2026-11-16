@@ -1,0 +1,4 @@
+numpy>=1.26
+opencv-python-headless>=4.9,<5  # cv2.CascadeClassifier left the main package in 5.x
+matplotlib>=3.8
+scikit-image>=0.22
